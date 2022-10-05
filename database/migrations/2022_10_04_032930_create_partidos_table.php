@@ -15,6 +15,11 @@ return new class extends Migration
     {
         Schema::create('partidos', function (Blueprint $table) {
             $table->id();
+            $table->enum('status', [1,2])->default(1);
+            $table->integer('goles_equipo1')->nullable();
+            $table->integer('goles_equipo2')->nullable();
+            $table->string('resultado')->nullable();
+            $table->date('fecha_partido')->nullable();
             $table->timestamps();
         });
     }

@@ -13,9 +13,11 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('user_torneos', function (Blueprint $table) {
+        Schema::create('torneo_pais', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
+            $table->foreignId('torneo_id')->constrained('torneos');
+            $table->foreignId('pais_id')->constrained('paises');
         });
     }
 
@@ -26,6 +28,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('user_torneos');
+        Schema::dropIfExists('torneo_pais');
     }
 };

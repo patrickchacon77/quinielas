@@ -15,6 +15,9 @@ return new class extends Migration
     {
         Schema::create('torneos', function (Blueprint $table) {
             $table->id();
+            $table->string('nombre_torneo', 50);
+            $table->string('sede_torneo', 50);
+            $table->enum('tipo', [1,2])->default(1);
             $table->timestamps();
         });
     }

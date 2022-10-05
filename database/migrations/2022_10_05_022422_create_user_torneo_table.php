@@ -13,12 +13,12 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('paises', function (Blueprint $table) {
+        Schema::create('user_torneo', function (Blueprint $table) {
             $table->id();
-            $table->string('grupo', 50);
-            $table->string('continente', 50);
-            $table->string('nombre_pais', 50);
+            $table->enum('aceptada', [1,2])->default(1);
             $table->timestamps();
+            $table->foreignId('user_id')->constrained('users');
+            $table->foreignId('torneo_id')->constrained('torneos');
         });
     }
 
@@ -29,6 +29,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('pais');
+        Schema::dropIfExists('user_torneo');
     }
 };
