@@ -16,7 +16,7 @@ return new class extends Migration
         Schema::create('partidos', function (Blueprint $table) {
             $table->id();
             $table->string('titulo', 100)->nullable();
-            $table->enum('completado', [1,2])->default(1);
+            $table->enum('completado', [1,2, 3])->default(1);
             $table->integer('goles_equipo1')->nullable();
             $table->integer('goles_equipo2')->nullable();
             $table->string('resultado')->nullable();

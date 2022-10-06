@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Partido;
 use App\Models\Pais;
+use App\Models\User;
+use Illuminate\Support\Facades\Auth;
 use App\Models\Torneo;
 use Illuminate\Http\Request;
 use App\Models\Resultado;
@@ -107,6 +109,8 @@ class PartidoController extends Controller
      */
     public function update(Request $request, Partido $partido)
     {
+
+
         $request->validate([
             'completado' => 'required',
             // 'resultado' => 'required',
@@ -117,18 +121,32 @@ class PartidoController extends Controller
 
         ]);
 
+
         $paises = Pais::all();
         $paises = $paises->pluck('nombre_pais', 'id');
 
         $torneos = Torneo::all();
         $torneos = $torneos->pluck('nombre_torneo', 'id');
 
+
         $partido->update($request->all());
 
-        //dar puntos a todos.
+        $resultado;
 
+        //if para asignar un estado.
+        if ($partido->goles_equipo1==$partido->goles_equipo2) {
+            $resultado = 'empate';
+        }elseif($partido->goles_equipo1>$partido->goles_equipo2){
+            $resultado = 'equipo1';
+        }else{
+            $resultado = 'equipo2';
+        }
+        $partido->update([
+            'resultado' => $resultado
+        ]);
 
-
+    
+        $this->actualizarPuntos($partido); //Actualiza puntos de todos los usuarios
 
         return redirect()->route('admin.partidos.edit', ['partido'=>$partido,'paises'=>$paises,'torneos'=>$torneos])->with('info', 'El torneo se Actualizo con éxito');
     }
@@ -144,22 +162,42 @@ class PartidoController extends Controller
         //
     }
 
-    public function actualizarPuntos(Partido $partido, $id){
+    public function vistaResultado()
+    {
+        $users = User::all();
+
+        return 'prueba';
+
+        return view('admin.partidos.tabla', compact('users'));
+    }
+
+    public function actualizarPuntos(Partido $partido){
         $resultados = Resultado::select('resultados.*', 'partidos.completado')
         ->join('partidos', 'partidos.id', '=', 'resultados.partido_id')
-        ->where('partidos.completado', 1)
-        ->where('id', $id)
+        ->where('partidos.completado', 3)
+        ->where('partido_id', $partido->id)
         ->get();
+        $user = User::find(Auth::user()->id);
+        foreach($resultados as $resultado) {
 
-        foreach ($resultados as $resultado) {
-            if ($resultado->goles_equipo1==$partido->goles_equipo1&&$resultado->goles_equipo2==$partido->goles_equipo2) {
-                # code...
-            } else {
-                # code...
+            if ($resultado->resultado==$partido->resultado) {
+                if ($resultado->goles_equipo1==$partido->goles_equipo1&&$resultado->goles_equipo2==$partido->goles_equipo2) {
+                    $puntos = $user->puntos+3;
+                    return $puntos;
+                    $user->update([
+                        'puntos'=>$puntos
+                    ]);
+
+                } else {
+                    $puntos = $user->puntos+1;
+                    $user->update([
+                        'puntos'=>$puntos
+                    ]);
+                }
+
             }
-        }
-        
 
+        }
 
     }
 }

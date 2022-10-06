@@ -54,6 +54,17 @@ class ResultadoController extends Controller
             'puntos_apostados' => 'required'
         ]);
 
+        $resultado;
+
+        //if para asignar un estado.
+        if ($request->goles_equipo1==$request->goles_equipo2) {
+            $resultado = 'empate';
+        }elseif($request->goles_equipo1>$request->goles_equipo2){
+            $resultado = 'equipo1';
+        }else{
+            $resultado = 'equipo2';
+        }
+
 
 
         $resultados = resultado::create([
@@ -63,8 +74,11 @@ class ResultadoController extends Controller
             'puntos_apostados' => $request->puntos_apostados,
             'user_torneo_id' => Auth::user()->user_torneo[0]->id,
             'updated_at' => $request->updated_at,
-            'created_at' => $request->created_at
+            'created_at' => $request->created_at,
+            'resultado' => $resultado
         ]);
+
+        
 
 
 

@@ -15,6 +15,7 @@ class Resultado extends Model
         'puntos_apostados',
         'user_torneo_id',
         'partido_id',
+        'resultado'
     ];
 
     protected $table = 'resultados';

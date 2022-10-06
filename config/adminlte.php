@@ -355,6 +355,13 @@ return [
             'active' => ['admin/resultados*'],
             //'can' => 'admin.cursos',
         ],
+        [
+            'text' => 'Tabla Resultados',
+            'route'  => 'admin.partidos.tabla',
+            'icon' => 'fa fa-fw fa-bufer',
+            'active' => ['admin/partidos/tabla*'],
+            //'can' => 'admin.cursos',
+        ],
         
         // [
         //     'text' => 'profile',

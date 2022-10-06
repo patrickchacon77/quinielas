@@ -32,3 +32,8 @@ Route::resource('/invitaciones', UserTorneoController::class)->names('admin.invi
 
 //routa cursos resource
 Route::resource('/resultados', ResultadoController::class)->names('admin.resultados');//->middleware('can:admin.cursos');
+
+
+Route::get('/partidos/tabla/', [PartidoController::class, 'vistaResultado'])->name('admin.partidos.tabla');
+
+// Route::get('/partidos/tabla', [PartidoController::class, 'vistaResultado'])->name('admin.partidos.tabla');

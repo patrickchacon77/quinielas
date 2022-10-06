@@ -18,6 +18,7 @@ return new class extends Migration
             $table->integer('goles_equipo1')->nullable();
             $table->integer('goles_equipo2')->nullable();
             $table->integer('puntos_apostados')->nullable();
+            $table->string('resultado')->nullable();
             $table->timestamps();
             $table->foreignId('user_torneo_id')->constrained('user_torneo');
             $table->foreignId('partido_id')->constrained('partidos');
