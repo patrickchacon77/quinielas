@@ -319,13 +319,43 @@ return [
         //     'label_color' => 'success',
         // ],
         ['header' => 'Administrador'],
-        // [
-        //     'text' => 'Cursos',
-        //     'route'  => 'admin.cursos.index',
-        //     'icon' => 'fa fa-fw fa-bufer',
-        //     'active' => ['admin/cursos*'],
-        //     //'can' => 'admin.cursos',
-        // ],
+        [
+            'text' => 'Torneos',
+            'route'  => 'admin.torneos.index',
+            'icon' => 'fa fa-fw fa-bufer',
+            'active' => ['admin/torneos*'],
+            //'can' => 'admin.cursos',
+        ],
+        [
+            'text' => 'Paises',
+            'route'  => 'admin.paises.index',
+            'icon' => 'fa fa-fw fa-bufer',
+            'active' => ['admin/paises*'],
+            //'can' => 'admin.cursos',
+        ],
+
+        [
+            'text' => 'Partidos',
+            'route'  => 'admin.partidos.index',
+            'icon' => 'fa fa-fw fa-bufer',
+            'active' => ['admin/partidos*'],
+            //'can' => 'admin.cursos',
+        ],
+        [
+            'text' => 'Invitaciones',
+            'route'  => 'admin.invitaciones.index',
+            'icon' => 'fa fa-fw fa-bufer',
+            'active' => ['admin/invitaciones*'],
+            //'can' => 'admin.cursos',
+        ],
+        [
+            'text' => 'Apostar',
+            'route'  => 'admin.resultados.index',
+            'icon' => 'fa fa-fw fa-bufer',
+            'active' => ['admin/resultados*'],
+            //'can' => 'admin.cursos',
+        ],
+        
         // [
         //     'text' => 'profile',
         //     'url'  => 'admin/settings',

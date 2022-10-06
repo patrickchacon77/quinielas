@@ -14,7 +14,10 @@ class PaisController extends Controller
      */
     public function index()
     {
-        //
+        $paises = Pais::all();
+        
+
+        return view('admin.paises.index', compact('paises'));
     }
 
     /**
@@ -24,7 +27,7 @@ class PaisController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.paises.create');
     }
 
     /**
@@ -35,7 +38,17 @@ class PaisController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'grupo' => 'required',
+            'continente' => 'required',
+            'nombre_pais' => 'required'
+        ]);
+
+        $pais = Pais::create($request->all());
+
+
+
+        return redirect()->route('admin.paises.edit', $pais)->with('info', 'El País se creo con éxito');
     }
 
     /**
@@ -55,9 +68,12 @@ class PaisController extends Controller
      * @param  \App\Models\Pais  $pais
      * @return \Illuminate\Http\Response
      */
-    public function edit(Pais $pais)
+    public function edit($id)
     {
-        //
+
+        $pais = Pais::find($id);
+
+        return view('admin.paises.edit', compact('pais'));
     }
 
     /**
@@ -67,9 +83,20 @@ class PaisController extends Controller
      * @param  \App\Models\Pais  $pais
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Pais $pais)
+    public function update(Request $request, $id)
     {
-        //
+
+        $pais = Pais::find($id);
+
+        $request->validate([
+            'grupo' => 'required',
+            'continente' => 'required',
+            'nombre_pais' => 'required'
+        ]);
+
+        $pais->update($request->all());
+
+        return redirect()->route('admin.paises.edit', $pais)->with('info', 'El pais se Actualizo con éxito');
     }
 
     /**
