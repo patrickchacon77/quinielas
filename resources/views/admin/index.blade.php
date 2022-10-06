@@ -3,11 +3,11 @@
 @section('title', 'Mundial')
 
 @section('content_header')
-    <h1>App Maya</h1>
+    <h1>Sistema de Quinielas</h1>
 @stop
 
 @section('content')
-    <p>Welcome to this beautiful admin panel.</p>
+    <p>Bienvenido a tu panel</p>
 @stop
 
 @section('css')
